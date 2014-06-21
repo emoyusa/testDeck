@@ -1,8 +1,8 @@
 ---
-title       : Test deck
+title       : Hospital Quality Measures by State, 2010
 subtitle    : 
-author      : 
-job         : 
+author      : Ernest Moy
+job         : Coursera Student
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
@@ -18,9 +18,52 @@ mode        : selfcontained # {standalone, draft}
 
 --- .class #id 
 
-## Slide 2
+## Afraid you might wind up in the wrong hospital?
 
-```{r, fig.height=5, fig.width=5}
-plot(1 : 10, 1 : 10)
+  <br>
+    <center><img src="assets/img/MadScientist.jpg" alt="Mad Scientist" width="600" height="413"></center>
+
+---
+
+## Hospitals vary in quality from State to State
+```{r echo=FALSE}
+qiostate <- read.csv("qioqist.csv")
+require(rCharts)
+qiostate = as.data.frame(qiostate)
+r2 <- rPlot(HeartAttackPCI ~ ST, 
+           data=qiostate, type="bar")
+r2$addControls('y', 'HeartAttackPCI', names(qiostate))
+r2$save('r2.html', cdn = TRUE)
 ```
+<iframe src = "r2.html"></iframe>
+
+---
+
+## Correlations across measures of quality are not great
+```{r echo=FALSE}
+qiostate <- read.csv("qioqist.csv")
+require(rCharts)
+qiostate = as.data.frame(qiostate)
+r3 <- rPlot(HeartAttackPCI ~ HeartFailureACE, 
+           data=qiostate, type="point")
+r3$addControls('x', 'HeartAttackPCI', names(qiostate))
+r3$addControls('y', 'HeartFailureACE', names(qiostate))
+r3$save('r3.html', cdn = TRUE)
+```
+<iframe src = "r3.html"></iframe>
+
+--- 
+
+## Use Hospital Quality Measures by State to survive your next hospitalization!
+<a href="https://emoyusa.shinyapps.io/qiostate/"><img src="assets/img/pci.png" alt="Hospital Quality Tool" width="600" height="400" align="right"></a>
+
+For whatever ails you, 
+
+find States with
+
+1. Better processes of care
+
+2. Lower rates of death
+
+3. Lower rates of adverse events
 
